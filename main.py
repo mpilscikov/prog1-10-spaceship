@@ -11,6 +11,8 @@ BACKGROUND = pygame.image.load('stars.jpg')
 MISSILE = pygame.image.load('missile.png')
 ASTEROID = pygame.image.load('asteroid.png')
 
+FONT = pygame.font.SysFont('couriernew', 24)
+
 CREATE_ASTEROID = pygame.USEREVENT + 1
 pygame.time.set_timer(CREATE_ASTEROID, 215)
 
@@ -22,6 +24,8 @@ spaceship_left = 100
 
 spaceship_left_change = 0
 spaceship_top_change = 0
+
+score = 0
 
 while True:
     events = pygame.event.get()
@@ -99,5 +103,9 @@ while True:
             if asteroid_rect.colliderect(missiles_rect):
                 asteroid_coord.remove(asteroid)
                 missile_coord.remove(missile)
+                score += 1
+                
+    text = FONT.render(f'SCORE: {score}', True, [255, 255, 255])
+    window.blit(text, [10, 10])
 
     pygame.display.update()
