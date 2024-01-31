@@ -105,6 +105,16 @@ while True:
             health -= 15
             
             if health <= 0:
+                pygame.time.wait(500)
+                
+                window.blit(BACKGROUND, [0, 0])
+                game_over = FONT.render('GAME OVER', True, [255, 255, 255])
+                window.blit(game_over, [100, 300])
+                
+                pygame.display.update()
+                
+                pygame.time.wait(2000)
+                
                 pygame.quit()
             
         
@@ -124,10 +134,3 @@ while True:
 
 
     pygame.display.update()
-    
-# kad spaceship sadurās ar asteroid
-# spaceship health samazinās par 15
-# sākumā health ir 100
-# ja health ir mazāks par 0, beigt spēli (pygame.quit())
-# sākumā health ir 100
-# parādīt health zem SCORE
