@@ -9,11 +9,13 @@ pygame.display.set_caption("Space mission")
 SPACESHIP = pygame.image.load('spaceship.png')
 BACKGROUND = pygame.image.load('stars.jpg')
 MISSILE = pygame.image.load('missile.png')
+ASTEROID = pygame.image.load('asteroid.png')
 
 CREATE_ASTEROID = pygame.USEREVENT + 1
 pygame.time.set_timer(CREATE_ASTEROID, 250)
 
 missile_coord = []
+asteroid_coord = []
 
 spaceship_top = 100
 spaceship_left = 100
@@ -27,6 +29,11 @@ while True:
     for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
+            
+        if event.type == CREATE_ASTEROID:
+            asteroid_top = random.randint(20, 420)
+            asteroid_left = random.randint(30, 100)
+            asteroid_coord.append([asteroid_top, asteroid_left])
             
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_t:
@@ -73,6 +80,14 @@ while True:
         
         if coord[1] < (0 - MISSILE.get_height()):
             missile_coord.remove(coord)
+            
+    for coord in asteroid_coord:
+        coord[1] += 0.5
+        window.blit(ASTEROID, coord)
+        
+        if coord[1] > 720:
+            asteroid_coord.remove(coord)
+
 
 
     pygame.display.update()
