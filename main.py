@@ -10,6 +10,9 @@ SPACESHIP = pygame.image.load('spaceship.png')
 BACKGROUND = pygame.image.load('stars.jpg')
 MISSILE = pygame.image.load('missile.png')
 
+CREATE_ASTEROID = pygame.USEREVENT + 1
+pygame.time.set_timer(CREATE_ASTEROID, 250)
+
 missile_coord = []
 
 spaceship_top = 100
@@ -65,7 +68,7 @@ while True:
     window.blit(SPACESHIP, [spaceship_left, spaceship_top])
 
     for coord in missile_coord:
-        coord[1] -= 0.3
+        coord[1] -= 0.5
         window.blit(MISSILE, coord)
         
         if coord[1] < (0 - MISSILE.get_height()):
