@@ -31,9 +31,9 @@ while True:
             pygame.quit()
             
         if event.type == CREATE_ASTEROID:
-            asteroid_top = random.randint(20, 420)
-            asteroid_left = random.randint(30, 100)
-            asteroid_coord.append([asteroid_top, asteroid_left])
+            asteroid_left = random.randint(20, 400)
+            asteroid_top = random.randint(-100, -30)
+            asteroid_coord.append([asteroid_left, asteroid_top])
             
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_t:
