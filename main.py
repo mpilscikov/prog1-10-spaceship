@@ -87,6 +87,14 @@ while True:
         
         if coord[1] > 720:
             asteroid_coord.remove(coord)
+            
+        asteroid_rect = ASTEROID.get_rect()
+        missiles_rect = MISSILE.get_rect()
+        
+        asteroid_rect.topleft = coord
+        
+        for missile in missile_coord:
+            missiles_rect.topleft = missile
 
 
 
