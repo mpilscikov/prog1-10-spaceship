@@ -12,7 +12,7 @@ MISSILE = pygame.image.load('missile.png')
 ASTEROID = pygame.image.load('asteroid.png')
 
 CREATE_ASTEROID = pygame.USEREVENT + 1
-pygame.time.set_timer(CREATE_ASTEROID, 250)
+pygame.time.set_timer(CREATE_ASTEROID, 215)
 
 missile_coord = []
 asteroid_coord = []
@@ -56,7 +56,7 @@ while True:
                 spaceship_left_change = 0
                 spaceship_top_change = -0.3
 
-            if event.key == pygame.K_f:
+            if event.key == pygame.K_f or event.key == pygame.K_e:
                 missile_left =  spaceship_left + (MISSILE.get_width() / 2)
                 missile_top = spaceship_top + MISSILE.get_height()
 
@@ -81,21 +81,23 @@ while True:
         if coord[1] < (0 - MISSILE.get_height()):
             missile_coord.remove(coord)
             
-    for coord in asteroid_coord:
-        coord[1] += 0.5
-        window.blit(ASTEROID, coord)
+    for asteroid in asteroid_coord:
+        asteroid[1] += 0.4
+        window.blit(ASTEROID, asteroid)
         
-        if coord[1] > 720:
-            asteroid_coord.remove(coord)
+        if asteroid[1] > 720:
+            asteroid_coord.remove(asteroid)
             
         asteroid_rect = ASTEROID.get_rect()
         missiles_rect = MISSILE.get_rect()
         
-        asteroid_rect.topleft = coord
+        asteroid_rect.topleft = asteroid
         
         for missile in missile_coord:
             missiles_rect.topleft = missile
-
-
+            
+            if asteroid_rect.colliderect(missiles_rect):
+                asteroid_coord.remove(asteroid)
+                missile_coord.remove(missile)
 
     pygame.display.update()
