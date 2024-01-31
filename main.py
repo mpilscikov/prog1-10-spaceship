@@ -26,6 +26,7 @@ spaceship_left_change = 0
 spaceship_top_change = 0
 
 score = 0
+health = 100
 
 while True:
     events = pygame.event.get()
@@ -94,8 +95,18 @@ while True:
             
         asteroid_rect = ASTEROID.get_rect()
         missiles_rect = MISSILE.get_rect()
+        spaceship_rect = SPACESHIP.get_rect()
         
+        spaceship_rect.topleft = [spaceship_left, spaceship_top]
         asteroid_rect.topleft = asteroid
+        
+        if asteroid_rect.colliderect(spaceship_rect):
+            asteroid_coord.remove(asteroid)
+            health -= 15
+            
+            if health <= 0:
+                pygame.quit()
+            
         
         for missile in missile_coord:
             missiles_rect.topleft = missile
@@ -107,5 +118,16 @@ while True:
                 
     text = FONT.render(f'SCORE: {score}', True, [255, 255, 255])
     window.blit(text, [10, 10])
+    
+    text_2 = FONT.render(f'HEALTH: {health}', True, [255, 255, 255])
+    window.blit(text_2, [10, 30])
+
 
     pygame.display.update()
+    
+# kad spaceship sadurās ar asteroid
+# spaceship health samazinās par 15
+# sākumā health ir 100
+# ja health ir mazāks par 0, beigt spēli (pygame.quit())
+# sākumā health ir 100
+# parādīt health zem SCORE
